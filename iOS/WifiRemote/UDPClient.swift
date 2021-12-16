@@ -14,15 +14,20 @@ class UDPClient {
     
     public init(host: String, port: Int)
     {
+        
+        /*
         guard let codedAddress = IPv4Address(host),
                     let codedPort = NWEndpoint.Port(rawValue: NWEndpoint.Port.RawValue(port)) else {
                         print("Failed to create connection address")
-                        return
+                        //return
                 }
+         */
+        let codedPort = NWEndpoint.Port(rawValue: NWEndpoint.Port.RawValue(port))
         
         //Try to connect
-        let hostUDP: NWEndpoint.Host = .ipv4(codedAddress)
-        let portUDP: NWEndpoint.Port = codedPort
+        //let hostUDP: NWEndpoint.Host = .ipv4(codedAddress)
+        let hostUDP = NWEndpoint.Host(host)
+        let portUDP: NWEndpoint.Port = codedPort!
         self.socket = NWConnection(host: hostUDP, port: portUDP, using: .udp)
         
         self.socket!.stateUpdateHandler = { (newState) in
