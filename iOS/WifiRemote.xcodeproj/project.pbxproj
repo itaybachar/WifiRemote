@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D16CD75E276A601F00DACDB6 /* RemoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16CD75D276A601F00DACDB6 /* RemoteViewController.swift */; };
 		D16CD760276A60B900DACDB6 /* UDPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D16CD75F276A60B900DACDB6 /* UDPClient.swift */; };
+		D16CD766276AD56500DACDB6 /* WifiRemote.png in Resources */ = {isa = PBXBuildFile; fileRef = D16CD765276AD56500DACDB6 /* WifiRemote.png */; };
 		D1D5596B2765841B00898187 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D5596A2765841B00898187 /* AppDelegate.swift */; };
 		D1D5596D2765841B00898187 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D5596C2765841B00898187 /* SceneDelegate.swift */; };
 		D1D5596F2765841B00898187 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D5596E2765841B00898187 /* MainViewController.swift */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		D16CD75D276A601F00DACDB6 /* RemoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteViewController.swift; sourceTree = "<group>"; };
 		D16CD75F276A60B900DACDB6 /* UDPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDPClient.swift; sourceTree = "<group>"; };
+		D16CD765276AD56500DACDB6 /* WifiRemote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WifiRemote.png; sourceTree = "<group>"; };
 		D1D559672765841B00898187 /* WifiRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WifiRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1D5596A2765841B00898187 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D1D5596C2765841B00898187 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				D1D559732765841C00898187 /* Assets.xcassets */,
 				D1D559752765841C00898187 /* LaunchScreen.storyboard */,
 				D1D559782765841C00898187 /* Info.plist */,
+				D16CD765276AD56500DACDB6 /* WifiRemote.png */,
 			);
 			path = WifiRemote;
 			sourceTree = "<group>";
@@ -131,6 +134,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D16CD766276AD56500DACDB6 /* WifiRemote.png in Resources */,
 				D1D559772765841C00898187 /* LaunchScreen.storyboard in Resources */,
 				D1D559742765841C00898187 /* Assets.xcassets in Resources */,
 				D1D559722765841B00898187 /* Main.storyboard in Resources */,

@@ -120,6 +120,7 @@
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="Fko-OF-udy" appends="YES" id="I2P-T7-lBs"/>
+                                    <outletCollection property="gestureRecognizers" destination="1qQ-WN-oF6" appends="YES" id="lc1-xV-xsJ"/>
                                 </connections>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDj-NW-i6j">
@@ -206,6 +207,12 @@
                                     <action selector="handleButtonClick:" destination="G0Z-cW-dzy" eventType="touchUpInside" id="PwW-dM-A4a"/>
                                 </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="ac7-vq-4b4">
+                                <rect key="frame" x="146" y="133" width="122" height="31"/>
+                                <connections>
+                                    <action selector="cursorSpeedChange:" destination="G0Z-cW-dzy" eventType="valueChanged" id="5Vb-3e-S7Q"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="phU-w2-v75"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -215,20 +222,24 @@
                             <constraint firstItem="7tK-qo-kcY" firstAttribute="centerXWithinMargins" secondItem="PzH-Gl-vC6" secondAttribute="centerX" constant="168" id="9HI-CD-WPm"/>
                             <constraint firstItem="phU-w2-v75" firstAttribute="trailing" secondItem="7tK-qo-kcY" secondAttribute="trailing" constant="20" id="9Oo-qP-ffl"/>
                             <constraint firstItem="I5x-YO-7Bu" firstAttribute="leading" secondItem="phU-w2-v75" secondAttribute="leading" constant="20" id="A5i-EK-IGj"/>
+                            <constraint firstItem="ac7-vq-4b4" firstAttribute="leading" secondItem="I5x-YO-7Bu" secondAttribute="trailing" constant="90" id="D9P-4e-K8J"/>
                             <constraint firstItem="Ed0-tW-A2B" firstAttribute="top" secondItem="5be-sq-fBj" secondAttribute="bottom" constant="5" id="FZ1-VD-CxV"/>
                             <constraint firstItem="5g5-H3-4im" firstAttribute="top" secondItem="I5x-YO-7Bu" secondAttribute="bottom" constant="10" id="I5K-Q3-KBV"/>
                             <constraint firstItem="7tK-qo-kcY" firstAttribute="top" secondItem="fDj-NW-i6j" secondAttribute="bottom" constant="10" id="NEc-ri-HzL"/>
                             <constraint firstItem="phU-w2-v75" firstAttribute="bottom" secondItem="s0E-ju-EOM" secondAttribute="bottom" constant="29" id="PU6-hc-ldJ"/>
                             <constraint firstItem="l6s-2k-lp6" firstAttribute="top" secondItem="Ed0-tW-A2B" secondAttribute="bottom" constant="40" id="TY1-nX-M5J"/>
                             <constraint firstItem="5g5-H3-4im" firstAttribute="leading" secondItem="I5x-YO-7Bu" secondAttribute="leading" id="UwP-lS-tss"/>
+                            <constraint firstItem="ac7-vq-4b4" firstAttribute="centerX" secondItem="PzH-Gl-vC6" secondAttribute="centerX" id="Xad-5c-Byd"/>
                             <constraint firstItem="s0E-ju-EOM" firstAttribute="top" secondItem="l6s-2k-lp6" secondAttribute="bottom" constant="30" id="bN5-np-2D4"/>
                             <constraint firstItem="akA-ga-wPX" firstAttribute="leading" secondItem="5be-sq-fBj" secondAttribute="trailing" constant="5" id="ds2-QQ-OXR"/>
                             <constraint firstItem="5g5-H3-4im" firstAttribute="leading" secondItem="phU-w2-v75" secondAttribute="leading" constant="20" id="jxg-bv-Eiq"/>
                             <constraint firstItem="s0E-ju-EOM" firstAttribute="centerX" secondItem="PzH-Gl-vC6" secondAttribute="centerX" id="lmE-9F-ZJg"/>
+                            <constraint firstItem="ac7-vq-4b4" firstAttribute="centerY" secondItem="PzH-Gl-vC6" secondAttribute="centerY" constant="-300" id="mBa-bU-v3k"/>
                             <constraint firstItem="Ed0-tW-A2B" firstAttribute="top" secondItem="akA-ga-wPX" secondAttribute="bottom" constant="5" id="nXp-Qi-AwN"/>
                             <constraint firstItem="l6s-2k-lp6" firstAttribute="centerX" secondItem="PzH-Gl-vC6" secondAttribute="centerX" id="nyR-oa-pSW"/>
                             <constraint firstItem="5be-sq-fBj" firstAttribute="leading" secondItem="Ed0-tW-A2B" secondAttribute="leading" id="vfc-TV-Q2r"/>
                             <constraint firstItem="Ed0-tW-A2B" firstAttribute="centerX" secondItem="PzH-Gl-vC6" secondAttribute="centerX" id="w7c-WK-CqF"/>
+                            <constraint firstItem="fDj-NW-i6j" firstAttribute="leading" secondItem="ac7-vq-4b4" secondAttribute="trailing" constant="90" id="xNz-9a-peY"/>
                             <constraint firstItem="phU-w2-v75" firstAttribute="trailing" secondItem="fDj-NW-i6j" secondAttribute="trailing" constant="20" id="xxa-gn-tiS"/>
                             <constraint firstItem="I5x-YO-7Bu" firstAttribute="baseline" secondItem="fDj-NW-i6j" secondAttribute="baseline" id="zV3-Ja-VSf"/>
                         </constraints>
@@ -244,6 +255,11 @@
                         <action selector="handlePan:" destination="G0Z-cW-dzy" id="45u-XO-FUR"/>
                     </connections>
                 </panGestureRecognizer>
+                <tapGestureRecognizer id="1qQ-WN-oF6">
+                    <connections>
+                        <action selector="handleTap:" destination="G0Z-cW-dzy" id="hxH-Nm-n4e"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="724.63768115942037" y="83.705357142857139"/>
         </scene>

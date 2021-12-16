@@ -11,8 +11,10 @@ class RemoteViewController : UIViewController {
     
     var client: UDPClient?
     var startPosition: CGPoint?
-    let mouseSpeed:CGFloat = 5
+    var mouseSpeed: CGFloat = 5
     
+    let sem = NSCondition()
+    	
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
@@ -28,6 +30,17 @@ class RemoteViewController : UIViewController {
         }
     }
     
+    @IBAction func cursorSpeedChange(_ sender: UISlider) {
+        mouseSpeed = CGFloat(sender.value)
+    }
+    
+    @IBAction func handleTap(_ sender: UITapGestureRecognizer) {
+        
+        if(sender.state == .ended)
+        {
+            client!.sendUDP("Left Click")
+        }
+    }
     
     @IBAction func handlePan(_ sender: UIPanGestureRecognizer) {
         var diff: CGPoint
@@ -43,8 +56,7 @@ class RemoteViewController : UIViewController {
             }
             diff = sender.location(in: MousePad) - startPosition!
         }
-        var out = diff.norm().scale(mult: mouseSpeed).toString()
-        out += ";"
+        let out = diff.norm().scale(mult: mouseSpeed).toString()
         client!.sendUDP(out)
     }
     
@@ -52,7 +64,7 @@ class RemoteViewController : UIViewController {
         var outmsg = ""
         if sender.titleLabel?.text != nil
         {
-            outmsg += sender.titleLabel!.text! + ";"
+            outmsg += sender.titleLabel!.text!
         }
         client!.sendUDP(outmsg)
     }
@@ -62,21 +74,23 @@ class RemoteViewController : UIViewController {
     }
     
     @IBAction func returnandle(_ sender: UITextField) {
-        client!.sendUDP("RET;")
+        client!.sendUDP("RET")
     }
+    
     @IBAction func valueChanged(_ sender: UITextField) {
         var msg = ""
         if(sender.text! == "")
         {
-            msg += "BACK;"
+            msg += "BACK"
         }
         else
         {
-            msg += (sender.text?.last.map(String.init))! + ";"
+            msg += "KEY: " + (sender.text?.last.map(String.init))!
         }
         sender.text = " "
         client!.sendUDP(msg)
     }
+    
     func disconnect()
     {
         client = nil
