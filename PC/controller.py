@@ -57,8 +57,20 @@ def startServer(attributes):
 #Set up server
 port = 2222
 server_attrib = ('',port)
+#Differente Attempts at getting hostname
 hostname = socket.gethostname()
 ip = socket.gethostbyname(hostname)
+ip2 = ''
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+try:
+    # doesn't even have to be reachable
+    s.connect(('1.255.255.255', 1))
+    ip2 = s.getsockname()[0]
+except:
+    ip2 = ''
+finally:
+    s.close()
+
 print("Wifi Remote Controller\nHostname: {}\nPort: {}\n".format(ip,port)) 
 
 start_new_thread(startServer,(server_attrib,))
@@ -67,9 +79,12 @@ window = Tk()
 window.title("Wifi Remote Controller")
 window.minsize(300,100)
 window.configure(background = "white")
-Label(window ,text = "Hostname:",background='white').pack()
+Label(window ,text = "Hostnames:",background='white').pack()
 Label(window, text="{}".format(hostname),background='white').pack()
 Label(window, text="{}".format(ip),background='white').pack()
+if ip2 != '' and ip2 != ip:
+	Label(window, text="{}".format(ip2),background='white').pack()
+
 Label(window,text = "Code:",background='white').pack()
 Label(window, text="{}".format(port),background='white').pack()
 
