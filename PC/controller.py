@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import ttk
+from tkinter import PhotoImage
 import pynput.keyboard as kbctl
 import pynput.mouse as msctl
 import socket
@@ -77,6 +77,11 @@ start_new_thread(startServer,(server_attrib,))
 
 window = Tk()
 window.title("Wifi Remote Controller")
+#window.iconbitmap(default=r'icon.png')
+#window.iconphoto(False, PhotoImage(file='icon.png'))
+
+
+#window.tk.call('wm', 'iconphoto', window._w, ttk.PhotoImage(file='icon.png'))
 window.minsize(300,100)
 window.configure(background = "white")
 Label(window ,text = "Hostnames:",background='white').pack()
