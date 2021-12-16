@@ -57,7 +57,8 @@ def startServer(attributes):
 #Set up server
 port = 2222
 server_attrib = ('',port)
-ip = socket.gethostbyname(socket.gethostname() + '.local')
+hostname = socket.gethostname()
+ip = socket.gethostbyname(hostname)
 print("Wifi Remote Controller\nHostname: {}\nPort: {}\n".format(ip,port)) 
 
 start_new_thread(startServer,(server_attrib,))
@@ -67,6 +68,7 @@ window.title("Wifi Remote Controller")
 window.minsize(300,100)
 window.configure(background = "white")
 Label(window ,text = "Hostname:",background='white').pack()
+Label(window, text="{}".format(hostname),background='white').pack()
 Label(window, text="{}".format(ip),background='white').pack()
 Label(window,text = "Code:",background='white').pack()
 Label(window, text="{}".format(port),background='white').pack()
