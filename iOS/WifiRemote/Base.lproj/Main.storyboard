@@ -121,6 +121,7 @@
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="Fko-OF-udy" appends="YES" id="I2P-T7-lBs"/>
                                     <outletCollection property="gestureRecognizers" destination="1qQ-WN-oF6" appends="YES" id="lc1-xV-xsJ"/>
+                                    <outletCollection property="gestureRecognizers" destination="rYm-BZ-IIx" appends="YES" id="2t3-We-PPt"/>
                                 </connections>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDj-NW-i6j">
@@ -247,10 +248,11 @@
                     <navigationItem key="navigationItem" id="HKX-SI-OuS"/>
                     <connections>
                         <outlet property="MousePad" destination="Ed0-tW-A2B" id="W7C-ZF-eFd"/>
+                        <outlet property="panRecognizer" destination="Fko-OF-udy" id="wxp-h8-jU6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3K-Ax-zZn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="Fko-OF-udy">
+                <panGestureRecognizer minimumNumberOfTouches="1" maximumNumberOfTouches="2" id="Fko-OF-udy">
                     <connections>
                         <action selector="handlePan:" destination="G0Z-cW-dzy" id="45u-XO-FUR"/>
                     </connections>
@@ -258,6 +260,11 @@
                 <tapGestureRecognizer id="1qQ-WN-oF6">
                     <connections>
                         <action selector="handleTap:" destination="G0Z-cW-dzy" id="hxH-Nm-n4e"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer numberOfTouchesRequired="2" id="rYm-BZ-IIx">
+                    <connections>
+                        <action selector="handleTap:" destination="G0Z-cW-dzy" id="uXr-ql-e1z"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

@@ -10,14 +10,16 @@ import UIKit
 class RemoteViewController : UIViewController {
     
     var client: UDPClient?
-    var startPosition: CGPoint?
+    var mouseStart: CGPoint?
+    var mousePos: CGPoint?
     var mouseSpeed: CGFloat = 5
     
+    @IBOutlet var panRecognizer: UIPanGestureRecognizer!
     let sem = NSCondition()
-    	
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
+        client?.connectionFailedCallback = disconnect
     }
 
     //Remote Screen
@@ -35,10 +37,18 @@ class RemoteViewController : UIViewController {
     }
     
     @IBAction func handleTap(_ sender: UITapGestureRecognizer) {
-        
         if(sender.state == .ended)
         {
-            client!.sendUDP("Left Click")
+            if(sender.numberOfTouches == 1)
+            {
+                client!.sendUDP("Left Click")
+
+            }
+            else
+            {
+                client!.sendUDP("Right Click")
+
+            }
         }
     }
     
@@ -47,18 +57,57 @@ class RemoteViewController : UIViewController {
         switch (sender.state)
         {
         case UIPanGestureRecognizer.State.began:
-            startPosition = sender.location(in: MousePad)
+            mouseStart = sender.location(in: MousePad)
+            
+            if(sender.numberOfTouches == 1)
+            {
+                DispatchQueue.global().async {
+                    while(self.panRecognizer.state != .ended)
+                    {
+                        guard let pos = self.mousePos else {
+                            //usleep(10000)
+                            continue
+                        }
+                        let out = pos.norm().scale(mult: self.mouseSpeed).toString()
+                        self.client!.sendUDP(out)
+                        usleep(10000)
+                    }
+                }
+            }
+            
+            return
+            
+        case UIPanGestureRecognizer.State.ended:
+            mousePos = nil
             return
         default:
-            if(startPosition == nil)
+            if (sender.numberOfTouches == 2)
             {
-                return
+                let vel = sender.velocity(in: MousePad)
+                let cur = sender.location(in: MousePad)
+                if((cur-mouseStart!).magSqrd() > 80)
+                {
+                    mouseStart = cur
+                    if(vel.y<0)
+                    {
+                        client?.sendUDP("\\/")
+                    }
+                    else
+                    {
+                        client?.sendUDP("/\\")
+                    }
+                }
             }
-            diff = sender.location(in: MousePad) - startPosition!
+            else
+            {
+                guard let pos = mouseStart else {
+                    return
+                }
+                mousePos = sender.location(in: MousePad) - pos
+            }
         }
-        let out = diff.norm().scale(mult: mouseSpeed).toString()
-        client!.sendUDP(out)
     }
+    
     
     @IBAction func handleButtonClick(_ sender: UIButton) {
         var outmsg = ""
@@ -93,8 +142,10 @@ class RemoteViewController : UIViewController {
     
     func disconnect()
     {
-        client = nil
-        self.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.client = nil
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 
@@ -102,11 +153,20 @@ func -(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
     return CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
 }
 
+func /(lhs: CGPoint, rhs: CGFloat) -> CGPoint {
+    return CGPoint(x: lhs.x/rhs, y: lhs.y/rhs)
+}
+
 extension CGPoint {
     func norm() -> CGPoint
     {
         let denom = (x*x + y*y).squareRoot()
         return CGPoint(x: self.x/denom,y:self.y/denom)
+    }
+    
+    func magSqrd() -> Float
+    {
+        return Float(self.x*self.x + self.y*self.y)
     }
     
     func scale(mult: CGFloat) -> CGPoint

@@ -7,6 +7,12 @@ import socket
 from _thread import *
 import threading
 
+import os
+import sys
+
+def get_script_path():
+    return os.path.dirname(os.path.realpath(sys.argv[0]))
+
 #Initialize Mouse and Keyboard
 mouse = msctl.Controller()
 keyboard = kbctl.Controller()
@@ -28,7 +34,6 @@ def parseMessage(msg):
 		mouse.click(msctl.Button.right,1)
 	elif msg.find('KEY') != -1:
 		key = msg[-1]
-		#print(key)
 		if key == ' ':
 			keyboard.tap(kbctl.Key.space)
 		else:
@@ -77,11 +82,11 @@ start_new_thread(startServer,(server_attrib,))
 
 window = Tk()
 window.title("Wifi Remote Controller")
-#window.iconbitmap(default=r'icon.png')
-#window.iconphoto(False, PhotoImage(file='icon.png'))
+#window.iconbitmap('icon')
+#window.iconphoto(False, PhotoImage(file='icon.ico'))
 
 
-#window.tk.call('wm', 'iconphoto', window._w, ttk.PhotoImage(file='icon.png'))
+#window.tk.call('wm', 'iconphoto', window._w, PhotoImage(file='icon.ico'))
 window.minsize(300,100)
 window.configure(background = "white")
 Label(window ,text = "Hostnames:",background='white').pack()

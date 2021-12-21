@@ -11,10 +11,10 @@ import Network
 class UDPClient {
     
     var socket: NWConnection?
+    var connectionFailedCallback: (()-> Void)? = nil
     
     public init(host: String, port: Int)
     {
-        
         /*
         guard let codedAddress = IPv4Address(host),
                     let codedPort = NWEndpoint.Port(rawValue: NWEndpoint.Port.RawValue(port)) else {
@@ -35,11 +35,31 @@ class UDPClient {
                  case .ready:
                     print("State: Ready\n")
                     return
-                 default:
+             case .preparing:
+                 print("Prep")
+                 return
+             case .setup:
+                 print("setup")
+                 return
+             case .cancelled:
+                 print("Canceled")
+                 return
+             case .waiting:
+                 print("waiting")
+                 return
+             case .failed:
+                 print("Failed")
+                
+                 guard let callback = self.connectionFailedCallback else {
+                     return
+                 }
+                 callback()
+                    
+                 return
+             default:
                  print("State: Not Ready\n")
              }
         }
-
     }
     
     func isReady() -> Bool{
@@ -56,8 +76,9 @@ class UDPClient {
         
         var timeout = false
         //Wait for socket to be ready
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 5) {
            // Excecute after 3 seconds
+            print("Timed Out")
             timeout = true
         }
         
@@ -67,7 +88,7 @@ class UDPClient {
                 return 1
             }
         }
-        
+
         return 0
     }
     
